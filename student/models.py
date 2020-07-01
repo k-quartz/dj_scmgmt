@@ -25,6 +25,7 @@ class StudentResult(models.Model):
     subject=models.CharField(max_length=50)
     min_marks=models.IntegerField()
     marks_obt=models.IntegerField()
+    stand=models.CharField(max_length=10, default="")
 
 
 class Profile(models.Model):
