@@ -31,7 +31,7 @@ def createStudent(request):
 
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication])
+#@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated,])
 def updateStudent(request,id):
     
@@ -43,7 +43,35 @@ def updateStudent(request,id):
         return Response(stu_serializer.data,status=201)
     else:
         return Response(stu_serializer.errors,status=400)
-            
+
+@api_view(['GET'])
+#@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated,])
+def displayResult(request,id):
+    result=models.StudentResult.objects.filter(student_id=id)
+    serializer=serializers.StudentResultSerializes(result,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated,])
+def createResult(request,id):
+    serializer=serializers.StudentResultSerializes(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data,status=201)
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated,])
+def UpdateResult(request,id):
+    snippet=models.StudentResult.objects.get(id=id)
+
+    serializer=serializers.StudentResultSerializes(instance=snippet,data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data,status=201)
+
 
 def index(request):
     return render(request,"student/index.html")

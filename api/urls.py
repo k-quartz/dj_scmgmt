@@ -4,6 +4,6 @@ from api import views
 urlpatterns = [
     path('index/',views.index),
     path('',views.ListEmployee.as_view()),
-    path('api/',include('djoser.urls')),
-    path('api/',include('djoser.urls.authtoken')),
+    path('',include('djoser.urls')),
+    path('',include('djoser.urls.authtoken')),
 ]

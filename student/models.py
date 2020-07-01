@@ -26,6 +26,7 @@ class StudentResult(models.Model):
     min_marks=models.IntegerField()
     marks_obt=models.IntegerField()
 
+
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     profileImg=models.ImageField(upload_to='profile_img',default='default.jpg')
